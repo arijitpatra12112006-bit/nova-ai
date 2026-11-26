@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NOVA AI — Your Intelligence. Your Universe.</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts for crisp typography & monospace code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Mobile Backdrop -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Chat History">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-orb" aria-hidden="true"></div>
+          <div>
+            <h1 class="brand-name">NOVA AI</h1>
+            <p class="brand-tagline">Your Intelligence. Your Universe.</p>
+          </div>
+        </div>
+        <button class="icon-btn mobile-only" id="closeSidebarBtn" aria-label="Close sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <button class="new-chat-btn" id="newChatBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        <span>New Chat</span>
+      </button>
+
+      <div class="history-label">Recent Conversations</div>
+      <nav class="history-list" id="historyList" aria-label="Saved chats"></nav>
+
+      <div class="sidebar-footer">
+        <button class="footer-action-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <span id="themeLabel">Light Mode</span>
+        </button>
+
+        <button class="footer-action-btn danger" id="clearHistoryBtn" title="Delete all local conversations">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6" />
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+          </svg>
+          <span>Clear History</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-workspace">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-only" id="openSidebarBtn" aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <div class="model-pill">
+            <span class="status-dot"></span>
+            <span>NOVA Core &bull; Gemini 4</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="tts-toggle-btn" id="ttsToggleBtn" aria-pressed="false" title="Toggle Auto Text-to-Speech">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+            <span id="ttsStatusText">Voice: OFF</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Feed / Welcome Screen -->
+      <section class="chat-viewport" id="chatViewport" aria-live="polite">
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="hero-orb"></div>
+          <h2 class="hero-title">NOVA AI</h2>
+          <p class="hero-subtitle">Your Intelligence. Your Universe.</p>
+          <p class="hero-desc">
+            Ask complex questions, architect software, debug code, or brainstorm ideas with real-time contextual reasoning.
+          </p>
+
+          <div class="prompt-grid" id="suggestedPrompts">
+            <button class="prompt-card" data-prompt="Explain quantum computing in simple terms with a real-world analogy.">
+              <span class="prompt-title">Quantum Computing</span>
+              <span class="prompt-sub">Explain qubits & superposition simply</span>
+            </button>
+            <button class="prompt-card" data-prompt="Write a clean, responsive CSS Grid layout for a modern SaaS pricing page.">
+              <span class="prompt-title">Frontend Architecture</span>
+              <span class="prompt-sub">Generate a modern CSS Grid pricing layout</span>
+            </button>
+            <button class="prompt-card" data-prompt="Create a 5-step debugging checklist for production REST APIs.">
+              <span class="prompt-title">API Diagnostics</span>
+              <span class="prompt-sub">5-step production REST API checklist</span>
+            </button>
+            <button class="prompt-card" data-prompt="Draft a concise product launch announcement for an AI developer tool.">
+              <span class="prompt-title">Product Strategy</span>
+              <span class="prompt-sub">Write a sharp launch announcement</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="messages-container" id="messagesContainer"></div>
+      </section>
+
+      <!-- Composer Bar -->
+      <footer class="composer-wrapper">
+        <div class="error-banner" id="errorBanner" role="alert" hidden></div>
+
+        <div class="composer-box">
+          <button class="mic-btn" id="micBtn" type="button" aria-label="Voice input" title="Speak your prompt">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+              <line x1="12" y1="19" x2="12" y2="23" />
+              <line x1="8" y1="23" x2="16" y2="23" />
+            </svg>
+          </button>
+
+          <textarea
+            id="promptInput"
+            rows="1"
+            placeholder="Message NOVA AI..."
+            aria-label="Message NOVA AI"
+            maxlength="8000"
+          ></textarea>
+
+          <button class="send-btn" id="sendBtn" type="button" aria-label="Send message" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+          </button>
+        </div>
+        <p class="composer-hint">NOVA AI can make mistakes. Verify critical code and facts.</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
