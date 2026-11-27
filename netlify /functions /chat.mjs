@@ -143,3 +143,6 @@ export default async (request, context) => {
     return jsonResponse(500, { error: "Internal server error while contacting Gemini API." });
   }
 };
+
+
+
